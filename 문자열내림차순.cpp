@@ -20,4 +20,4 @@ string solution(string s) {
         answer+=char(v.at(i));
     }
     return answer;
-}
+} 
