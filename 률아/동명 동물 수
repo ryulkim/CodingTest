@@ -1,0 +1,2 @@
+-- 코드를 입력하세요
+SELECT NAME, count(name) as COUNT from ANIMAL_INS group by name HAVING COUNT>1 ORDER BY NAME ASC;
