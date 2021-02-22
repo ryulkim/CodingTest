@@ -1,0 +1,51 @@
+#include <string>
+#include <vector>
+
+using namespace std;
+
+
+class sol
+{
+    public:
+        vector<int> answer;
+        int b_l;
+
+        int X = 0;
+        int Y = 0;
+
+
+    sol(int brown0, int yellow0)
+    {
+        b_l = (brown0 + 4) / 2;
+
+        for (int y = 1; y <= b_l / 2; y++)
+        {
+            int x = b_l - y;
+
+            if (x * y == brown0 + yellow0)
+            {
+                answer.push_back(x);
+                answer.push_back(y);
+                break;
+            }
+        }
+    }
+};
+
+
+vector<int> solution(int brown, int yellow) {
+
+    sol *s1 = new sol(brown, yellow);
+    vector<int> answer = s1->answer;
+    return answer;
+}
+
+int brown1 = 10;
+int yello1 = 2;
+
+int main(void)
+{
+   // sol* s1 = new sol(brown1, yellow1);
+    return 0;
+
+}
