@@ -1,0 +1,15 @@
+#include <string>
+#include <iostream>
+
+using namespace std;
+
+long long solution(long long n) {
+    long long value=1;
+    while(n>=value*value){
+        if(n==value*value){
+            return (value+1)*(value+1);
+        }
+        value++;
+    }
+    return -1;
+}
