@@ -1,0 +1,41 @@
+#include <iostream>
+using namespace std;
+
+int main() {
+    int a[13] = { 0, };
+    int c[12][13] = { 0, };
+    int num1, num2;
+    int one=0, two=0;
+    for (int i = 0; i < 12; i++) {
+        cin >> num1 >> num2;
+        a[num1 - 1]++; a[num2 - 1]++;
+        c[num1 - 1][num2 - 1]++;
+        c[num2 - 1][num1 - 1]++;
+    }
+    for (int i = 0; i < 12; i++) {
+        if (a[i] == 3) {
+            for (int j = 0; j < 12; j++) {
+                if (i == j) {
+                    continue;
+                }
+                if (c[i][j] == 1) {
+                    if (a[j] == 1) {
+                        one = 1;
+                    }
+                    else if (a[j] == 2) {
+                        two = 1;
+                    }
+                }
+                if (one == 1 && two == 1) {
+                    cout << i + 1;
+                    //one = 0; two = 0;
+                    break;
+                }
+            }
+            one = 0; two = 0;
+        }
+        if (one == 1 && two == 1) {
+            break;
+        }
+    }
+}
