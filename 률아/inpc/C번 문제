@@ -1,0 +1,54 @@
+#include <iostream>
+#include <string>
+#include <cmath>
+using namespace std;
+
+int main() {
+    string pro;
+    cin >> pro;
+    string max = "";
+    string min = "";
+    string t = "";
+    int m = 0;
+    for (int i = 0; i < pro.length(); i++) {
+        if (pro[i] == 'M' && i == pro.length() - 1) {
+            m += 1;
+            max.append(m, '1');
+        }
+        else if (pro[i] == 'M') {
+            m += 1;
+        }
+        else if (pro[i] == 'K') {
+            max += '5';
+            max.append(m, '0');
+            m = 0;
+        }
+    }
+
+    m = 0;
+    for (int i = 0; i < pro.length(); i++) {
+        if (pro[i] == 'M' && i == pro.length() - 1) {
+            min += "1";
+            m += 1;
+            if (m > 1) {
+                min.append(m - 1, '0');
+            }
+        }
+        else if (pro[i] == 'M') {
+            m += 1;
+        }
+        else if (pro[i] == 'K') {
+            if (m > 0) {
+                min += '1';
+                min.append(m-1,'0');
+                min += "5";
+            }
+            else {
+                min += "5";
+            }
+            m = 0;
+        }
+    }
+    cout << max << endl;
+    cout << min << endl;
+}
