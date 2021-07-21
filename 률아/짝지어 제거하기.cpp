@@ -23,6 +23,6 @@ int solution(string s)
     else{
         answer=0;
     }
-
+ 
     return answer;
 }
