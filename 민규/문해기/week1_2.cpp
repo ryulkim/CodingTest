@@ -24,9 +24,11 @@ string solution(string &data)
         {
             if (data[0] == 'B')
             {
+             if(!block.empty()){
                 block.pop_back();
                 min0 = *min_element(block.begin(), block.end());
                 max0 = *max_element(block.begin(), block.end());
+             }
                 return "blank";
             }
 
@@ -60,6 +62,8 @@ string solution(string &data)
         cout << e.what() << endl;
         //cout << data << endl;
     }
+
+    return "";
 }
 
 
