@@ -3,7 +3,6 @@ player2="바위"
 
 if player1==player2:
     print("draw")
-
 if player1=="가위":
     if player2=="바위":
         print("player2 win")
