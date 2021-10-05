@@ -12,6 +12,7 @@ def search(name):
         line=fr.readline()
     if check==0:
         print("없음")
+    fr.close()
 
 search('Sun')
 search('Jacob')
