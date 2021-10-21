@@ -1,76 +1,62 @@
 #include <iostream>
 #include <vector>
-#include <algorithm>
+#include <list>
 using namespace std;
 
-int n,m; //f,t
-
-vector<string> profe_say;
-vector<vector<string>> stu_say;
-
-
-bool find_stu(string &say0,int index)
+int solution(int n, int m)
 {
-
- for(int x = 0 ; x < n ; x++)
- {
-  index = 0;
-  for(auto y = stu_say[x].begin(); y != stu_say[x].end(); y++){
+ list<string> pro_fe;
  
-   if(*y == "")
-    index++;
+ for(int x = 0 ; x < m ; x++)
+ {
+  string s1; cin >> s1; pro_fe.push_back(s1);
+ }
 
-   if(*y == say0 && distance(stu_say[x].begin(),y) == index)
+ list<list<string>> stu_de;
+
+ for(int x = 0; x < n; x++)
+ {
+  stu_de.push_back(list<string>());
+  int n1; cin >> n1;
+  for(int y = 0; y < n1; y++)
+  {
+   string s1; cin >> s1; stu_de.back().push_back(s1);
+  }
+ } //input
+  
+ 
+ while(pro_fe.size())
+ {
+  bool check = true; 
+  for(auto x = stu_de.begin(); x != stu_de.end(); x++)
+  {
+   if((*x).size() && pro_fe.front() == x->front())
    {
-    *y = "";
-    return true;
+    check = false; (*x).pop_front();
    }
   }
- }
- 
- return false;
-}
 
-int solution()
-{
- for(int x = 0 ; x < m; x++)
- {
-   if(!find_stu(profe_say[x],0))
-    return 0;
+  pro_fe.pop_front();
+
+  if(check)
+   return 0;
  }
 
- return 1; 
+ return 1;
 }
 
 int main(void)
 {
- ios_base::sync_with_stdio(false);
- cin.tie(NULL); 
- cout.tie(NULL);
- int t; cin >> t;
- for(int w = 0 ; w < t ; w++)
+ ios_base::sync_with_stdio(false); cin.tie(NULL); cout.tie(NULL); 
+ int all_case; cin >> all_case;
+ 
+ for(int x = 0 ; x < all_case ; x++)
  {
-  profe_say.resize(0); stu_say.resize(0);
-  cin >> n >> m;
-
-  for(int x = 0 ; x < m ; x++)
-  {
-   string say; cin >> say;
-   profe_say.push_back(say);
-  }
-
-  for(int x = 0 ; x < n ; x++)
-  {
-   int k; cin >> k; vector<string> say;
-   for(int y = 0; y < k ; y++)
-   {
-    string say0; cin >> say0;
-    say.push_back(say0);
-   } 
-   stu_say.push_back(say);
-  }
-
-  cout << solution() << "\n";
+  int n,m; cin >> n >> m;
+  cout << solution(n,m) << "\n";
  }
+
  return 0;
 }
+
+
