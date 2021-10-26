@@ -1,58 +1,48 @@
 #include <iostream>
-#include <string>
-#include <vector>
+#include <cmath>
 using namespace std;
 
-
-string solution(int& n, string &data)
+int solution()
 {
-    vector<string> small_data;
-    string returna = "";
-    small_data.assign(n, "");
-
-    for (int x = 0; x < n; x++) {
-        int y = x;
-        int y1 = n + (n - x-1);
-        while (y < data.length()) {
-            try {
-                small_data[x].push_back(data[y]);
-                y += 2*n;
-
-                if (y1 < data.length())
-                    small_data[x].push_back(data[y1]);
-
-                else break;
-                y1 += 2 * n;
+ string s;int n; cin >> s; cin >> n;
  
-            }
+ for(int pos = 0; pos < n; pos++)
+ {
+  int pos_x = pos; int pos_x2 = n*2 - pos-1; bool check = true;
 
-            catch (exception& e) {
-                break;
-            }
-        }
-    }
-        
-    for (int x = 0; x < n; x++) {
-        //cout << small_data[x] << endl;
-        returna += small_data[x];
-    }
+  while(pos_x < s.length())
+  {
+   cout << s[pos_x];
+   pos_x += n*2; 
+   
+   if(pos_x2 < s.length())
+    cout << s[pos_x2];
 
-    return returna;
+   else break;
+   pos_x2 += n*2; 
+  }
+ }
+ 
+ cout << "\n";
+ return 0;
 }
-
 
 int main(void)
 {
-    int m,n;
-    string data;
+ ios_base::sync_with_stdio(false); cin.tie(NULL); cout.tie(NULL);
+ int all_case = 0; cin >> all_case;
 
-    cin >> m;
+ for(int x = 0 ; x < all_case ; x++)
+  solution();
 
-    for (int x = 0; x < m; x++)
-    {
-        cin >> data >> n;
-        cout << solution(n, data);
-        cout << "\n";
-    }
-    return 0;
-}
+ return 0;
+} 
+
+
+
+
+
+
+
+
+

@@ -1,54 +1,50 @@
-#include<iostream>
-#include<vector>
-#include<algorithm>
+#include <iostream>
+#include <vector>
 using namespace std;
 
 
-void error_checking(vector<vector<int>> &data1, int x)
+int dfs(vector<vector<int>> &data0, int len,int s0)
 {
-  for(int y = 1; y < (int)data1[x].size() ;y++)
-  { 
-   data1[data1[x][y]][0] += (data1[x][0] + 1);
-   error_checking(data1,data1[x][y]);
-  }
+ data0[s0].front() += len;
+
+ for(int x = 1 ; x < data0[s0].size() ; x++)
+ {
+  dfs(data0,data0[s0].front() + 1, data0[s0][x]);
+ }
+
+ return 0;
 }
 
 int solution(int n)
 {
- vector<vector<int>> data1;
- 
- 
- data1.assign(n+1,vector<int>(1,0));
+ vector<vector<int>> data0(n+1, vector<int>(1,0));
  for(int x = 1 ; x < n ; x++)
  {
-  int a,b; cin >> a >> b;
-  data1[a].push_back(b);
- }
-
- for(int x = 1; x <= n ; x++)
- {
-  string s; cin >> s;
-  data1[x][0] = s.length();
- }
-
- error_checking(data1,1);
+  int a,b; cin >> a >> b; data0[a].push_back(b);
+ } //0
 
  for(int x = 1 ; x <= n ; x++)
-  cout << data1[x][0] << "\n"; 
- 
+ {
+  string s; cin >> s; data0[x].front() = s.length(); 
+ } //name
+
+ dfs(data0,0,1);
+
+ for(int x = 1 ; x <= n ; x++)
+ {
+  cout << data0[x].front() << "\n";
+ }
+
  return 0;
 }
 
 int main(void)
 {
- ios_base::sync_with_stdio(false); 
- cin.tie(NULL); cout.tie(NULL);
  int all_case; cin >> all_case;
 
- for(int x = 0; x < all_case ; x++)
+ for(int x = 0 ; x < all_case ; x++)
  {
-  int n; cin >> n;
-  solution(n);
+  int n; cin >> n; solution(n);
  }
 
  return 0;
