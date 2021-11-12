@@ -6,12 +6,9 @@ using namespace std;
 
 const int index_a = 97;
 const int count_a = 26;
-const string de = "@@";
 vector<int> alpa_num(count_a, 0);
-vector<int> alpa_copy;
 vector<pair<string,int>> menu;
 int max_count0 = 0;
-
 
 
 void healing(vector<pair<int, int>>& call0)
@@ -46,17 +43,23 @@ vector<pair<int, int>> dfs(int m_0, int count0)
 		  inde_0 = menu[m_0].first[x]; count = 1;
 		}
 	}
- 
-	string s = menu[m_0].first; menu[m_0].first = de;
-	for (int x = m_0+1; x < menu.size(); x++)
+
+	if (alpa_num[int(inde_0) - index_a] - count < 0)
 	{
-		if (menu[x].first != de) {
-			vector<pair<int, int>> a = dfs(x, count0 + menu[m_0].second);
-			healing(a);		
-		}
+		max_count0 = max(max_count0, count0);
+		return call0;
+	}
+
+	alpa_num[int(inde_0) - index_a] -= count;
+	call0.push_back(pair<int, int>(int(inde_0) - index_a, count)); 
+	max_count0 = max(max_count0, count0 + menu[m_0].second);
+
+	for (int x = m_0+1; x < menu.size(); x++)
+	{		
+	  vector<pair<int, int>> a = dfs(x, count0 + menu[m_0].second);
+	  healing(a);			
 	}
     
-	menu[m_0].first = s;
 	return call0;
 }
 
