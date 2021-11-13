@@ -8,7 +8,7 @@ let seedStrokes=[]
 let canvas
 
 function  preload() {
-    model=ml5.sketchRNN("dog",modelReady)
+    model=ml5.sketchRNN("cat",modelReady)
 }
 
 function modelReady(){
