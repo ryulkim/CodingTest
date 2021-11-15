@@ -9,22 +9,10 @@ vector<int> with_check;
 
 int friend_count(int index_1,int real_1)
 {
-	if (real_1 >= stu_num)
-	{
-		with_check[index_1] = 1;
-		answer++; return 0;
-	}
-
-	if (with_check[index_1] == 0)
-		return 0;
-	else 
-		with_check[index_1] = 0;
+    with_check[index_1] = 0;
 
 	for (int x = 1; x < with_case[index_1].size(); x++)
 	{
-		if(with_case[index_1][x] < index_1)
-			continue;
-
 		int mid_check = with_check[with_case[index_1][x]];
 
 		if (mid_check)
