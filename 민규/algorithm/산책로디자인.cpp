@@ -3,6 +3,32 @@
 #include <algorithm>
 using namespace std;
 
+
+/*
+간단 idea 설명
+
+a) 두개의 graph 생성
+ a_1) graph_0 : (start, end)의 weight 저장 -> o(1)에 weight를 조회할 수 있게 함
+ a_2) graph_1 : start -> 연결된 노드 저장 -> o(i)동안에 연결된 node의 index를 얻는 것이 가능
+    -> 전체 맵을 탐색하는 것은 비효율 적이므로 graph를 하나 추가한 것(공간 -> 시간)
+
+b) P 모드(start ->)
+ b_1) list_a : start 인덱스 부터 전체 point를 탐색할 경로를 저장할 리스트
+ b_2) graph_2 : 현재 생성그래프(탐지가 끝난 그래프)의 상태를 나타내는 그래프
+
+ b_3) 알고리즘
+  특징 1 ) 한번 지나간 point는 또 지나가지 않는다 -> graph_2[index] = -1으로 만듬
+  특징 2 ) 지나가지 않은 경로 중 현재 추가되는 point로 인하여 지나가지 않은 point와의 weight가 변하는 경우의 수를 위하여
+   coloring 함수 준비 -> 기존에 graph_2에 저장되어 있던 값과 새로 갱신된 값 중 최소값을 남긴다.
+
+ 
+ 위의 내용을 graph_1의 크기가 point의 종류의 수와 같을 때 까지 반복하면 현 부분 그래프에서
+ 최소인 index간에만 node로 연결해서 값을 산출한 경로가 완성된다.
+*/
+
+
+
+
 vector<vector<int>> graph_p;
 vector<vector<int>> graph_n;
 vector<int> list_w;
