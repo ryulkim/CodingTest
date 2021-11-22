@@ -3,13 +3,11 @@ using namespace std;
 
 int num = 0;
 bool index[11] = { 0, };
-bool check = true;
 int p;
 
 void picnic(int arr[10][11], int n, int start) {
 	if (n == 0) {
 		num++;
-		check = 0;
 		return;
 	}
 	for (int i = start; i < p; i++) {
@@ -23,14 +21,10 @@ void picnic(int arr[10][11], int n, int start) {
 			}
 			index[j] = 1;
 			picnic(arr, n-1, i+1);
-			if (check == 0) {
-				index[j] = 0;
-				check = 1;
-			}
+			index[j] = 0;
 		}
 		index[i] = 0;
 	}
-	check = 0;
 	return;
 }
 
@@ -50,7 +44,6 @@ int main() {
 		picnic(arr, p/2, 0);
 		cout << num << '\n';
 		num = 0;
-		check = 1;
 		for (int j = 0; j < 10; j++) {
 			index[j] = 0;
 		}
