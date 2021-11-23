@@ -40,9 +40,9 @@ male0 = quiz0[quiz0['sex'] == 'M']
 
 job_list = quiz0["job"].unique()
 
-##########################################
+########################################## lambda x:x.value_counts().index[0]}).reset_index()
 
-group1 = quiz0.groupby('movie_name')['rating'].agg(**{ 'count' : 'count' , 'mean' : 'mean' , 'many': lambda x:x.value_counts().index[0]}).reset_index()
+group1 = quiz0.groupby('movie_name')['rating'].agg(**{ 'count' : 'count' , 'mean' : 'mean' , 'many': 'max'
 group1 = group1.sort_values(['count'] , ascending = False)
 group1 = group1.head(100)
 all_user1= group1.sort_values(['mean'] , ascending = False)
