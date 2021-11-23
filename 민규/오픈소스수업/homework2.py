@@ -35,3 +35,21 @@ print("highest number of ratings :  for all user\n")
 print(quiz1['movie_name'].head(20))
 
 ############quiz 1
+
+print(quiz1['sex'])
+female1 = quiz1[quiz1['sex'] == 'F']
+male1 = quiz1[quiz1['sex'] == 'M']
+
+print("highest number of ratings(female) :  for all sex\n")
+print(female1['movie_name'].head(20))
+
+print("highest number of ratings(male) :  for all sex\n")
+print(male1['movie_name'].head(20))
+
+
+
+
+
+
+
+
