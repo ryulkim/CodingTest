@@ -34,32 +34,32 @@ data, user,item = read_data_ml100k()
 quiz0 = pd.merge(data, item)
 quiz0 = pd.merge(quiz0, user)
 
-quiz01.drop_duplicates(['movie_id'], keep = 'first')
-
 female0 = quiz0[quiz0['sex'] == 'F']
-female0.drop_duplicates(['movie_id'], keep = 'first')
-
 male0 = quiz0[quiz0['sex'] == 'M']
-male0.drop_duplicates(['movie_id'], keep = 'first')
+
 
 job_list = quiz0["job"].unique()
 
 ##########################################
 
-quiz1 = quiz0[quiz0['rating'] > 4]
-print(quiz1['movie_name'].head())
+group1 = quiz0['rating'].groupby(quiz0['movie_name']).agg(['count', 'mean'])
+group1 = group1.sort_values(['count'] , ascending = False).head(100)
+all_user1= group1.sort_values(['mean'] , ascending = False)
+print(all_user1['mean'])
 
 #####################################################3
  
-female1 = female0[female0['rating'] > 4]
-print("highest number of ratings(female) :  for all sex\n")
-print(female1['movie_name'].head())
+group1_f = female0['rating'].groupby(female0['movie_name']).agg(['count', 'mean'])
+group1_f = group1_f.sort_values(['count'] , ascending = False).head(100)
+all_female1= group1_f.sort_values(['mean'] , ascending = False)
+print(all_female1['mean'])
 
 ##########################################33
 
-male1 = male0[male0['rating'] > 4]
-print("highest number of ratings(male) :  for all sex\n")
-print(male1['movie_name'].head())
+group1_m = male0['rating'].groupby(male0['movie_name']).agg(['count', 'mean'])
+group1_m = group1_m.sort_values(['count'] , ascending = False).head(100)
+all_male1= group1_m.sort_values(['mean'] , ascending = False)
+print(all_male1['mean'])
 
 ####################################3
 
