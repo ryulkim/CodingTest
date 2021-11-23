@@ -31,49 +31,54 @@ def read_data_ml100k():
 
 data, user,item = read_data_ml100k()
 
+quiz0 = pd.merge(data, item)
+quiz0 = pd.merge(quiz0, user)
 
-data2 = data[data['rating'] > 4]
-
-quiz1 = pd.merge(data2, item)
-quiz1 = pd.merge(quiz1, user) 
-#print("highest number of ratings :  for all user\n")
-#print(quiz1['movie_name'].head(20))
-
-quiz01 = quiz1
 quiz01.drop_duplicates(['movie_id'], keep = 'first')
 
-female1 = quiz1[quiz1['sex'] == 'F']
-female1.drop_duplicates(['movie_id'], keep = 'first')
+female0 = quiz0[quiz0['sex'] == 'F']
+female0.drop_duplicates(['movie_id'], keep = 'first')
 
-male1 = quiz1[quiz1['sex'] == 'M']
-male1.drop_duplicates(['movie_id'], keep = 'first')
+male0 = quiz0[quiz0['sex'] == 'M']
+male0.drop_duplicates(['movie_id'], keep = 'first')
 
-job_list = quiz1["job"].unique()
+job_list = quiz0["job"].unique()
 
 ##########################################
 
-print("highest number of ratings(all user) :  for all user\n")
-print(quiz01['movie_name'].head())
+quiz1 = quiz0[quiz0['rating'] > 4]
+print(quiz1['movie_name'].head())
 
 #####################################################3
  
+female1 = female0[female0['rating'] > 4]
 print("highest number of ratings(female) :  for all sex\n")
 print(female1['movie_name'].head())
 
 ##########################################33
 
+male1 = male0[male0['rating'] > 4]
 print("highest number of ratings(male) :  for all sex\n")
 print(male1['movie_name'].head())
 
 ####################################3
 
 for name in job_list:
- quiz02 = quiz1[quiz1['job'] == name]
- quiz02.drop_duplicates(['movie_id'], keep = 'first')
- print("highest number of ratings(" name + ") :in all job \n")
- print(quiz02['movie_name'].head(5) + "\n")
+ quiz01 = quiz1[quiz1['job'] == name]
+ quiz01.drop_duplicates(['movie_id'], keep = 'first')
+ print("highest number of ratings(" + name + ") :in all job \n")
+ print(quiz01['movie_name'].head(7) + "\n")
 
 ######################################3
+
+group1 = quiz0['user_id'].groupby(quiz0['rating'])
+print(
+print(group1.count())
+
+##########################3
+
+
+
 
 
 
