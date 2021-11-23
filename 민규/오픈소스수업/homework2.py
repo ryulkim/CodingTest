@@ -42,56 +42,66 @@ job_list = quiz0["job"].unique()
 
 ########################################## lambda x:x.value_counts().index[0]}).reset_index()
 
-group1 = quiz0.groupby('movie_name')['rating'].agg(**{ 'count' : 'count' , 'mean' : 'mean' , 'many': 'max'
+group1 = quiz0.groupby('movie_name')['rating'].agg(**{ 'count' : 'count' , 'mean' : 'mean' , 'many': 'max'}).reset_index()
 group1 = group1.sort_values(['count'] , ascending = False)
 group1 = group1.head(100)
-all_user1= group1.sort_values(['mean'] , ascending = False)
 
+all_user1= group1.sort_values(['many'] , ascending = False)
 print("all user + highest number(2_a)\n")
 print(all_user1[['movie_name' , 'many']])
 print("\n")
+
+all_user1= group1.sort_values(['mean'] , ascending = False)
 print("all user + highest average(2_b)\n")
 print(all_user1[['movie_name' , 'mean']])
 
 #####################################################3
  
-group1 = female0.groupby('movie_name')['rating'].agg(**{ 'count' : 'count' , 'mean' : 'mean' , 'many': lambda x:x.value_counts().index[0]}).reset_index()
+group1 = female0.groupby('movie_name')['rating'].agg(**{ 'count' : 'count' , 'mean' : 'mean' , 'many': 'max'}).reset_index()
 group1 = group1.sort_values(['count'] , ascending = False)
 group1 = group1.head(100)
-all_user1= group1.sort_values(['mean'] , ascending = False)
 
-print("all user + highest number(2_a)\n")
+
+all_user1= group1.sort_values(['many'] , ascending = False)
+print("female + highest number(2_a)\n")
 print(all_user1[['movie_name' , 'many']])
 print("\n")
-print("all user + highest average(2_b)\n")
+
+all_user1= group1.sort_values(['mean'] , ascending = False)
+print("female + highest average(2_b)\n")
 print(all_user1[['movie_name' , 'mean']])
 
 ##########################################33
 
-group1 = male0.groupby('movie_name')['rating'].agg(**{ 'count' : 'count' , 'mean' : 'mean' , 'many': lambda x:x.value_counts().index[0]}).reset_index()
+group1 = male0.groupby('movie_name')['rating'].agg(**{ 'count' : 'count' , 'mean' : 'mean' , 'many': 'max'}).reset_index()
 group1 = group1.sort_values(['count'] , ascending = False)
 group1 = group1.head(100)
-all_user1= group1.sort_values(['mean'] , ascending = False)
 
-print("all user + highest number(2_a)\n")
+all_user1= group1.sort_values(['many'] , ascending = False)
+print("male + highest number(2_a)\n")
 print(all_user1[['movie_name' , 'many']])
 print("\n")
-print("all user + highest average(2_b)\n")
+
+all_user1= group1.sort_values(['mean'] , ascending = False)
+print("male + highest average(2_b)\n")
 print(all_user1[['movie_name' , 'mean']])
 
 ####################################3
 
 for name in job_list:
- quiz01 = quiz1[quiz1['job'] == name]
- quiz01.drop_duplicates(['movie_id'], keep = 'first')
- print("highest number of ratings(" + name + ") :in all job \n")
- print(quiz01['movie_name'].head(7) + "\n")
-
-######################################3
-
-group1 = quiz0['user_id'].groupby(quiz0['rating'])
-print(
-print(group1.count())
+ quiz01 = quiz0[quiz0['job'] == name]
+ group1 = quiz01.groupby('movie_name')['rating'].agg(**{ 'count' : 'count' , 'mean' : 'mean' , 'many': 'max'}).reset_index()
+ group1 = group1.sort_values(['count'] , ascending = False)
+ group1 = group1.head(100)
+ 
+ all_user1= group1.sort_values(['many'] , ascending = False)
+ print(name  + " highest number(2_a)\n")
+ print(all_user1[['movie_name' , 'many']])
+ print("\n")
+    
+ all_user1= group1.sort_values(['mean'] , ascending = False)
+ print(name + " highest average(2_b)\n")
+ print(all_user1[['movie_name' , 'mean']])
 
 ##########################3
 
