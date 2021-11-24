@@ -33,11 +33,13 @@ def movielens_1():
 #############################################33
 
 quiz0 = movielens_1()
+
 female0 = quiz0[quiz0['sex'] == 'F']
 male0 = quiz0[quiz0['sex'] == 'M']
 
 
 job_list = quiz0["job"].unique()
+genre_list = ['unknown', 'Action', 'Adventure', 'Animation', 'Children\'s', 'Comedy', 'Crime', 'Documentary', 'Drama', 'Fantasy', 'Film-Noir', 'Horror', 'Musical', 'Mystery', 'Romance', 'Sci-Fi', 'Thriller', 'War', 'Western']
 
 ########################################## lambda x:x.value_counts().index[0]}).reset_index()
 
