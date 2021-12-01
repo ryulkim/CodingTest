@@ -1,67 +1,109 @@
 #include <iostream>
 #include <vector>
 #include <algorithm>
+#include <string>
 using namespace std;
 
-const vector<vector<int>> search1 = { { 0 , 1 }, { 1 , 0 }, { 1 , 1 } };
-const int alpa_n = 65;
 int size_0, word_n;
-vector<vector<char>> map0;
-vector<vector<int>> index0x;
-vector <vector<int>> index0y;
+string check_list0;
+string check_list1;
+string check_list2;
+
 bool answer = 0;
 string s;
 
-
-int find(int x0, int y0, int len,int mode)
+int kmp_a(string long_s, vector<int>& fail_f)
 {
-	len++; int x1, y1;
-	if (len == s.size()) { answer = 1; return 1;}
+	int start_n = 0;
 
-	x1 = x0 + search1[mode][0]; y1 = y0 + search1[mode][1];
+	for (int x = 0; x < long_s.size(); x++)
+	{
+		if (long_s[x] != s[start_n]) {
 
-	if (x1 < size_0 && y1 < size_0 && s[len] == map0[x1][y1])
-		return find(x1, y1, len,mode);
-		
+			if (start_n > 0) { start_n = fail_f[start_n - 1]; x--;}
+			continue;
+		}
+
+		else
+		{ 
+		  start_n++;
+		}
+
+		if (start_n == s.size()) return 1;
+	}
+	
+	return 0;
+}
+
+
+vector<int> KMP_GET() {
+
+	int Begin = 0, Length = (int)s.size();
+
+	vector<int> pi(Length, 0);
+
+	for (int i = 1; i < Length; i++) {
+
+		while (s[i] != s[Begin] && Begin > 0)Begin = pi[Begin - 1];
+
+		if (s[i] == s[Begin]) pi[i] = ++Begin;
+
+	}
+
+	return pi;
+}
+
+
+int find0()
+{
+	vector<int> fail_f = KMP_GET();
+	
+	if (kmp_a(check_list0, fail_f))
+	  return 1;
+
+	if (kmp_a(check_list1, fail_f))
+	  return 1;
+
+	if (kmp_a(check_list2, fail_f))
+	  return 1;
+	
 	return 0;
 }
 
 int solution()
 {
-	map0.assign(size_0, vector<char>(size_0, '@'));
-	index0x.assign(26, vector<int>(0,0)); index0y.assign(26, vector<int>(0, 0));
-
+	vector<string> check_list00, check_list10, check_list20;
+	check_list00.assign(size_0, ""); check_list10.assign(size_0, ""); check_list20.assign(size_0 * 2, "");
+	
 	for (int x = 0; x < size_0; x++)
 	{
 		for (int y = 0; y < size_0; y++)
 		{
-			char data0;  cin >> data0; map0[x][y] = data0;
-			index0x[(int)(data0 - alpa_n)].push_back(x);
-			index0y[(int)(data0 - alpa_n)].push_back(y);
+			char data0; cin >> data0;
+			check_list00[x] += data0; check_list10[y] += data0; check_list20[x - y + size_0] += data0;
 		}
+	}
+
+	for (int x = 0; x < size_0; x++) {
+		check_list0 += (check_list00[x] + '$');
+	}
+					
+	for (int x = 0; x < size_0; x++) {
+		check_list1 += (check_list10[x] + '$');
+	}
+
+	for (int x = 0; x < size_0 * 2; x++) {
+		check_list2 += (check_list20[x] + '$');
 	}
 
 	for (int x = 0; x < word_n; x++)
 	{
 		answer = 0; cin >> s;
-		auto index_tx = index0x[(int)(s[0] - alpa_n)];
-		auto index_ty = index0y[(int)(s[0] - alpa_n)];
 
-		auto yx = index_tx.begin(); auto yy = index_ty.begin();
-
-		for (1; yx != index_tx.end() && yy != index_ty.end(); yx++, yy++)
-		{
-			for (int z = 0; z < s.length(); z++)
-				if (index0x[(int)(s[z] - alpa_n)].size() == 0)
-					goto loop1;
-
-			for (int z = 0; z < 3; z++)
-				if (find(*yx, *yy, 0, z))
-					goto loop1;
-		}
-
-		loop1:;
-		cout << answer << "\n";
+		if (find0())
+		  cout << true << "\n"; 
+			
+		else cout << false << "\n";
 	}
 
 	return 1;
@@ -71,7 +113,7 @@ int solution()
 int main(void)
 {
 	ios_base::sync_with_stdio(false);
-	cin.tie(NULL);cout.tie(NULL);
+	cin.tie(NULL); cout.tie(NULL);
 
 	cin >> size_0 >> word_n;
 	solution();
