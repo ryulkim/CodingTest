@@ -1,6 +1,6 @@
 #include  "main_t.h"
 
-
+int background = 0;
 
 void siginal_control(int sig){
   if(sig == SIGINT)
@@ -145,31 +145,37 @@ void write_mode2(char* s_name, char* e_name0)
 
 int new_cat(char* mode, char* name0)
 {
- 
- char* name = strtok(name0, " >");
- name0 = strtok(NULL," ");
- name0 = strtok(NULL,"\n");
+  pid_t pid = NULL;
 
- if(strcmp(mode,"<") == 0)
- {
-  if(name0 != NULL)
-  {
-   write_mode2(name, name0);
+  if(background)
+   pid = fork();
+
+  if(pid == NULL || pid == 0){
+
+   char* name = strtok(name0, " >");
+   name0 = strtok(NULL," ");
+   name0 = strtok(NULL,"\n");
+
+   if(strcmp(mode,"<") == 0)
+   {
+    if(name0 != NULL)
+    {
+     write_mode2(name, name0);
+    }
+
+    else read_mode(name);
+   }
+
+   else if(strcmp(mode,">") == 0)
+   {
+    write_mode(name);
+   }
+   
+   else
+   {
+     read_mode(mode);
+   }
   }
-
-  else read_mode(name);
- }
-
- else if(strcmp(mode,">") == 0)
- {
-  write_mode(name);
- }
- 
- else
- {
-   read_mode(mode);
- }
-
 }
 
 void pipe_control(char* s_name, char* e_name)
@@ -198,6 +204,12 @@ void pipe_control(char* s_name, char* e_name)
 
 int list_correction(char *mode)
 {
+
+ if(cmdline[strlen(cmdline) -1] == '&')
+  background = 1;
+ 
+ else background = 0;
+
  char* cmdline0 = strtok(cmdline," ");
 
  if(strcmp(cmdline0,"pwd") == 0){
