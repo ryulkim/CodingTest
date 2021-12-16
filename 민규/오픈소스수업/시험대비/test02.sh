@@ -35,3 +35,27 @@ awk '$3~"Inode"{print $4}' //예제 문제
 #!bin/bash //Shabang
 echo $4 ${15} $6 //10번째 index 부터는 중괄호 필요 $0 : 현재 셀 스크립트 , $# positional parameter , $* all positional parameter, $? 최근에 실행된 커맨드
 read -p "enter" name // read 입력받아서 name에 저장
+
+#############################3
+
+[ $var -le 3 ] && echo $var || echo "nono" // var가 3보다 작거나 같으면 &&뒤의 내용 실행
+
+[ -e name ] : name이 존재하는 지, -f : file , -d : dir , -z : 스트링 길이가 0 , -n : string 길이가 0이 아닌 경우
+
+
+if []
+then
+elif
+then
+else
+fi
+
+
+[ $op = add ]
+[ $op = sub ]
+
+case word in
+pattern )
+commands ;;
+esac
+
