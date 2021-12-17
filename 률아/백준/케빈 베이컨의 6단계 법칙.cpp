@@ -42,5 +42,5 @@ int main() {
             per = i + 1;
         }
     }
-    cout << per << '\n';
+    cout << per << '\n'; 
 }
