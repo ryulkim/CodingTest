@@ -7,6 +7,8 @@ vector<int> dp_bot;
 
 int main(void)
 {
+	ios_base::sync_with_stdio(false); cin.tie(NULL); cout.tie(NULL);
+
 	cin >> n;
 	int bottle = -1; dp_bot.assign(n, 0); int data;
 	
