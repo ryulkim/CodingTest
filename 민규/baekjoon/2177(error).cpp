@@ -21,43 +21,28 @@ int main(void)
 
 		if (c1 >= m) answer += c2;
 		else {
-			money_v.push_back(pair<int,int>(c1,c2));
-		}
-	}
 
-	//sort(money_v.begin(), money_v.end());
-	money_v.sort();
-	int c1 = money_v.back().first; int c2 = money_v.back().second;
-	money_v.pop_back();
-	money_g.assign(m - c1, c2);
+			answer += (c2 / (m / c1 + m % c1));
+			c2 = c2 % (m / c1 + m % c1);
 
-	while (money_v.size())
-	{
-		int c1 = money_v.back().first; int c2 = money_v.back().second;
-		money_v.pop_front();
+			if(money_v.size() == 0) money_v.push_back(pair<int,int>(c1,c2));
 
-		while (c2 > 0) {
-			for (auto x = money_g.begin(); x != money_g.end(); x++)
+			else if(money_v.back().first >= m)
 			{
-				if (c2 > 0) { *x += c1; c2--; }
-				else if (*x >= m) { *x = 0; answer++; }
-				else goto loop1;
+				answer += c2; money_v.pop_back();
+			}
+
+			else
+			{
+				int d = money_v.front().first;
+
+				money_v.front().second += (m-d)
+				money_v.front().first += c1;			
 			}
 		}
-
-		loop1:;
 	}
 
-	int target = 0;
-
-	while (money_g.size())
-	{
-		target += money_g.back(); money_g.pop_back();
-		if (target >= m) { target = 0; answer++;  continue; }
-		if (money_g.size() == 0) break;
-		target += money_g.front(); money_g.pop_front();
-		if (target >= m) { target = 0; answer++;  continue; }
-	}
+	
 
 	cout << answer << "\n";
 	return 0;
