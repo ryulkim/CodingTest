@@ -1,0 +1,2 @@
+*.html linguist-detectable=false
+*.jupyter+notebook linguist-detectable=false
