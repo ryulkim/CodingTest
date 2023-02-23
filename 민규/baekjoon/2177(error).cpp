@@ -1,31 +1,49 @@
 #include <iostream>
 #include <vector>
+#include <algorithm>
+#include <list>
 using namespace std;
 
-int n,m;
-vector<pair<int,int>> data0; long double data1 = 0;
+
+int answer = 0;
+int n, m;
+vector<int> money_n;
+list<pair<int,int>> money_v;
+list<int> money_g;
 
 int main(void)
 {
- ios_base::sync_with_stdio(false);cin.tie(NULL); cout.tie(NULL);
- cin >> n >> m; 
- int value,count,answer = 0;
+	cin >> n >> m; money_n.assign(m, 0);
 
- for(int x = 0; x < n ;x++)
- {
-  cin >> value >> count;
+	for (int x = 0; x < n; x++)
+	{
+		int c1, c2; cin >> c1 >> c2;
 
-  if(value >= m)
-   answer += count;
+		if (c1 >= m) answer += c2;
+		else {
 
-  else{
-   answer += count/(m/value);
+			answer += (c2 / (m / c1 + m % c1));
+			c2 = c2 % (m / c1 + m % c1);
 
-   if(count - (count/(m/value) *(m/value)))
-    data1 += (long double)(count - (count/(m/value) *(m/value)))/(long double)(m/value);
-  } 
- }
- 
- cout << answer + (int)data1<< "\n";
- return 0;
+			if(money_v.size() == 0) money_v.push_back(pair<int,int>(c1,c2));
+
+			else if(money_v.back().first >= m)
+			{
+				answer += c2; money_v.pop_back();
+			}
+
+			else
+			{
+				int d = money_v.front().first;
+
+				money_v.front().second += (m-d)
+				money_v.front().first += c1;			
+			}
+		}
+	}
+
+	
+
+	cout << answer << "\n";
+	return 0;
 }
